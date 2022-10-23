@@ -1,15 +1,24 @@
 let mongoose = require('mongoose');
 
-// create naming format class
-let busFormat = mongoose.Schema({
+// create username format class
+let useFormat = mongoose.Schema({
     username: String,
     password: String,
     email: String,
     name: String
 },
 {
-    collection: "contacts"
+    collection: "username"
+});
+
+let busFormat = mongoose.Schema({
+    contactName: String,
+    contactNumber: Number,
+    emailAddress: String
+},
+{
+    collection: "contact"
 });
 
 //links to Account.js.
-module.exports= mongoose.model('Contacts', busFormat);
+module.exports= mongoose.model('Contact', busFormat);
