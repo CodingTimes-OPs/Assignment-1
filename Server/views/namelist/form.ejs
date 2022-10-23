@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include ('../partials/head'); %>
+</head>
+<body>
+  <header>
+    <%- include ('../partials/secondary_nav'); %>
+  </header>
+  <main>
+    <br><br><br>
+    <div class="row">
+      <div class="offset-md-1 col-md-11">
+        <a href="/namelist-form/add" class="btn btn-primary" role="button">
+          <i class="fas fa-plus-circle"></i> Add a contact
+        </a>
+        <br>
+        <table class="table table-border table-striped table-hover">
+          <tr class="d-flex">
+            <th class="text-center col-2">Contact name</th>
+            <th class="text-center col-2">Contact number</th>
+            <th class="text-center col-2">Contact email</th>
+          </tr>
+
+          <!--Contact Rows Repeat-->
+
+          <% for(let count =0; count < ContactForm.length; count++) {%>
+            <tr class="d-flex">
+              <td class="text-center col-2"><%= ContactForm[count].contactName %></td>
+              <td class="text-center col-2"><%= ContactForm[count].contactNumber %></td>
+              <td class="text-center col-2"><%= ContactForm[count].emailAddress %></td>
+              <td class="text-center col-1">
+                <a href="/namelist-form/edit/<%= ContactForm[count]._id %>" class="btn btn-primary btn-sm">
+                <i class="fas fa-pencil-alt"></i> Edit</a>
+              </td>
+              <td class="text-center col-1">
+                <a href="/namelist-form/delete/<%= ContactForm[count]._id %>" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash-alt"></i> Delete</a>
+              </td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
+    <br><br><br>
+  </main>
+</body>
+  <%- include ('../partials/footer'); %>
+</html>

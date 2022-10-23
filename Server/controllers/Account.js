@@ -3,10 +3,10 @@ let router = express.Router();
 let mongoose = require('mongoose');
 
 //reference to the model
-let Accounts = require('../models/namelist');
+let Contact = require('../models/namelist');
 
 module.exports.displayContactForm = (req,res,next) => {
-    Contact.find((err, contactform) => {
+    Contact.find((err, contactForm) => {
         if (err)
         {
             return console.error(err);
@@ -14,7 +14,7 @@ module.exports.displayContactForm = (req,res,next) => {
         else
         {
             //Folder path for form.ejs if successful load
-            res.render('namelist/form', {ContactForm: contactform});
+            res.render('namelist/form', {ContactForm: contactForm});
         }
     });
 };
