@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
+const db = require('../config/db');
 
 //reference to the model
 let Contact = require('../models/namelist');
@@ -21,19 +22,18 @@ module.exports.displayContactForm = (req,res,next) => {
 
 //displays add page
 module.exports.displayAddView = (req,res,next) => {
-    res.render('Contact/add');
+    res.render('namelist/add');
 };
 
 //process to add account
 module.exports.addAccount = (req,res,next)=>{
     let newContact = Contact({
-        "username": req.body.username,
-        "password": req.body.password,
-        "email": req.body.email,
-        "name": req.body.name
+        "contactName": req.body.contactName,
+        "contactNumber": req.body.contactNumber,
+        "emailAddress": req.body.emailAddress
     });
     
-    Account.create(newContact,(err, Contact) =>{
+    Contact.create(newContact,(err, Contact) =>{
         if(err)
         {
             console.log(err);
@@ -43,6 +43,7 @@ module.exports.addAccount = (req,res,next)=>{
         {
             //refreshing the account form
             res.redirect('/namelist-form');
+            console.log(req.body.contactName);
         }
     });
 };
@@ -50,7 +51,7 @@ module.exports.addAccount = (req,res,next)=>{
 module.exports.displayEditView = (req,res,next) =>{
     let id = req.params.id;
 
-    Contacts.findById(id,(err, EditContact) => {
+    Contact.findById(id,(err, EditContact) => {
         if(err)
         {
             console.log(err);
@@ -58,7 +59,7 @@ module.exports.displayEditView = (req,res,next) =>{
         }
         else
         {
-            res.render('contact/edit', {Contact : EditContact});
+            res.render('namelist/edit', {contact : EditContact});
         }
     });
 };
@@ -69,10 +70,9 @@ module.exports.processEditView = (req,res,next) => {
 
     let updateContact = Contact({
         "_id":id,
-        "username": req.body.username,
-        "password": req.body.password,
-        "email": req.body.email,
-        "name": req.body.name
+        "contactName": req.body.contactName,
+        "contactNumber": req.body.contactNumber,
+        "emailAddress": req.body.emailAddress
     });
 
     Contact.updateOne({_id:id}, updateContact, (err) => {
@@ -86,13 +86,13 @@ module.exports.processEditView = (req,res,next) => {
             res.redirect('/namelist-form');
         }
     });
-}
+};
 
 //delete contacts
 module.exports.processDelete = (req, res, next) => {
     let id = req.params.id;
 
-    Book.remove({_id: id}, (err) => {
+    Contact.remove({_id: id}, (err) => {
         if(err)
         {
             console.log(err);
@@ -101,7 +101,7 @@ module.exports.processDelete = (req, res, next) => {
         else
         {
              // refresh the book list
-             res.redirect('/book-list');
+             res.redirect('/namelist-form');
         }
     });
 };

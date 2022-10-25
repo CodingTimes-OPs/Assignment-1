@@ -7,7 +7,7 @@ let busFormat = mongoose.Schema({
     emailAddress: String
 },
 {
-    collection: "contacts"
+    collection: 'contacts'
 });
 
 //links to Account.js.
