@@ -14,6 +14,9 @@ let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let DB = require('./db');
 
+//mongoDB Atlas connection
+
+
 //mongoose to the DB URI
 mongoose.connect(DB.URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
